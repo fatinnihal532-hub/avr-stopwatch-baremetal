@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "author": "Fatin Nihal Islam",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": 60, "left": 0, "attrs": {} },
+    { "type": "wokwi-7segment", "id": "sevseg", "top": -110, "left": 60,
+      "attrs": { "digits": "4", "common": "cathode" } },
+    { "type": "wokwi-pushbutton", "id": "btnStart", "top": 200, "left": -160,
+      "attrs": { "color": "green", "label": "START/STOP" } },
+    { "type": "wokwi-pushbutton", "id": "btnReset", "top": 270, "left": -160,
+      "attrs": { "color": "red", "label": "RESET/LAP" } }
+  ],
+  "connections": [
+    [ "uno:0", "sevseg:A", "green", [] ],
+    [ "uno:1", "sevseg:B", "green", [] ],
+    [ "uno:2", "sevseg:C", "green", [] ],
+    [ "uno:3", "sevseg:D", "green", [] ],
+    [ "uno:4", "sevseg:E", "green", [] ],
+    [ "uno:5", "sevseg:F", "green", [] ],
+    [ "uno:6", "sevseg:G", "green", [] ],
+    [ "uno:7", "sevseg:DP", "green", [] ],
+    [ "uno:8", "sevseg:COM1", "blue", [] ],
+    [ "uno:9", "sevseg:COM2", "blue", [] ],
+    [ "uno:10", "sevseg:COM3", "blue", [] ],
+    [ "uno:11", "sevseg:COM4", "blue", [] ],
+    [ "uno:A0", "btnStart:1.l", "purple", [] ],
+    [ "btnStart:2.l", "uno:GND.1", "black", [] ],
+    [ "uno:A1", "btnReset:1.l", "purple", [] ],
+    [ "btnReset:2.l", "uno:GND.2", "black", [] ]
+  ]
+}
