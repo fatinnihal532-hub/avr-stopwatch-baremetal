@@ -35,10 +35,12 @@ in CTC mode and `OCR1A` is loaded with 2499, because the counter starts at zero.
 The compare-match interrupt then fires exactly 100 times per second. The timing
 does not drift, because it comes from the crystal, not from a software loop.
 
-**Timer0 for display refresh.** A 4-digit display has only one set of segment
+**Timer2 for display refresh.** A 4-digit display has only one set of segment
 lines, so the digits are lit one at a time, fast enough that the eye sees all
-four. Timer0 overflows at 16 MHz / 64 / 256 = 976 Hz, which gives each digit
-244 refreshes per second. Anything above roughly 60 Hz per digit looks steady.
+four. Timer2 overflows at 16 MHz / 64 / 256 = 976 Hz, which gives each digit
+244 refreshes per second. Timer2 is used rather than Timer0 because the Arduino
+core claims Timer0 for `millis()`, and two owners of the same interrupt vector
+will not link. Anything above roughly 60 Hz per digit looks steady.
 
 **Debouncing without `delay()`.** A mechanical switch bounces for a few
 milliseconds. The same interrupt that refreshes the display samples the buttons
