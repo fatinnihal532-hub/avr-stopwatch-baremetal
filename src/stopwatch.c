@@ -7,7 +7,7 @@
  *
  * Peripherals exercised
  *   Timer1  CTC mode, compare-match interrupt  -> 10 ms time base
- *   Timer0  overflow interrupt                 -> display refresh + button scan
+ *   Timer2  overflow interrupt                 -> display refresh + button scan
  *   PORTD   8 output pins                      -> 7-segment segment lines
  *   PORTB   4 output pins                      -> digit select lines
  *   PORTC   2 input pins with internal pull-ups -> push buttons
@@ -91,14 +91,14 @@ ISR(TIMER1_COMPA_vect)
 }
 
 /* ------------------------------------------------------------------ */
-/* Timer0: display multiplexing and button sampling                   */
+/* Timer2: display multiplexing and button sampling                   */
 /* 16 MHz / 64 / 256 = 976 Hz  ->  244 Hz per digit, flicker free.    */
 /* ------------------------------------------------------------------ */
-static void timer0_init(void)
+static void timer2_init(void)
 {
-    TCCR0A = 0;
-    TCCR0B = (1 << CS01) | (1 << CS00);  /* normal mode, /64 */
-    TIMSK0 = (1 << TOIE0);
+    TCCR2A = 0;
+    TCCR2B = (1 << CS22);                /* normal mode, /64 */
+    TIMSK2 = (1 << TOIE2);
 }
 
 /* Debounce by requiring the same reading DEBOUNCE_N times in a row.
@@ -106,7 +106,7 @@ static void timer0_init(void)
  * samples means the contact has been quiet for about 32 ms. */
 #define DEBOUNCE_N 4
 
-ISR(TIMER0_OVF_vect)
+ISR(TIMER2_OVF_vect)
 {
     static uint8_t digit = 0;
     static uint8_t prescale = 0;
@@ -192,7 +192,7 @@ void stopwatch_init(void)
     BTN_PORT |=  (1 << BTN_START) | (1 << BTN_RESET);              /* pull-ups */
 
     timer1_init();
-    timer0_init();
+    timer2_init();
     sei();                               /* global interrupt enable */
 
     render(0);
