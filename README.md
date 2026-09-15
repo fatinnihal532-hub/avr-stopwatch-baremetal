@@ -4,7 +4,7 @@ A four-digit stopwatch written in C for the ATmega328P **without a single Arduin
 library call**. Every pin, every timer and every interrupt is configured by writing
 directly to the microcontroller's registers.
 
-Runs in the browser on [Wokwi](https://wokwi.com) and on a real Arduino Uno.
+**[Run it in your browser](https://wokwi.com/projects/475218749247186945)** on Wokwi, no hardware and no install. The same firmware runs on a real Arduino Uno.
 
 | | |
 |---|---|
